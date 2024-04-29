@@ -1,0 +1,64 @@
+Design Document
+Camille Johnson
+Erinstagram
+
+Data
+Image: 2D array of integers representing pixel brightness values
+Edited Image: 2D array of characters representing the edited image
+File pointers: image file for loading and saving
+User Choice: char for menu selection
+Rotation Choice: char for rotation menu selection
+
+Game Play
+In the game play, users interact with a menu offering options such as loading a new image,
+displaying the current image, editing the image, and exiting the program. When loading a new
+image, users provide a filename, and the program attempts to read and display the image. Editing
+options include cropping, dimming, brightening, and rotating the image, with the user prompted
+to save their edits if desired. After each interaction, users are returned to the main menu until
+they choose to exit the program, which concludes the gameplay loop.
+
+Functions
+main()
+Data: Image, Edited Image, File pointers, User Choice, Rotation Choice
+Functionality: Display menu, process user choice, call corresponding functions, loop until the
+user chooses to exit.
+
+load_image()
+Input Parameters: File pointer, Image array
+Returned Output: None
+Functionality: Load image data from a file into the Image array.
+
+display_image()
+Input Parameters: Image array
+Returned Output: None
+Functionality: Display the current image using characters based on brightness values.
+
+edit_image_menu()
+Input Parameters: None
+Returned Output: User Choice
+Functionality: Display a menu for editing options and return the user's choice.
+
+edit_image_crop()
+Input Parameters: Image array
+Returned Output: Edited Image array
+Functionality: Allow the user to specify a smaller section of the original image.
+
+edit_image_dim()
+Input Parameters: Image array
+Returned Output: Edited Image array
+Functionality: Dim each pixel in the image by one step.
+
+edit_image_brighten()
+Input Parameters: Image array
+Returned Output: Edited Image array
+Functionality: Brighten each pixel in the image by one step.
+
+edit_image_rotate()
+Input Parameters: Image array
+Returned Output: Edited Image array
+Functionality: Rotate the image 90 degrees by moving each pixel to a new location.
+
+save_image()
+Input Parameters: Edited Image array
+Returned Output: None
+Functionality: Prompt the user to save the edited image to a file
