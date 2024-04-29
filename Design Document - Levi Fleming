@@ -1,0 +1,69 @@
+Design Document
+Levi Fleming
+Erinstagram
+
+Data
+● Image – 2D array of ints (size varies based on file)
+● Current Image – 2D array of ints representing the current state of the image
+● File pointers – inputImage, outputImage
+● Brightness to Character Map – Dictionary mapping ints to chars
+● Image Filename – string
+● Image Dimensions – int rows, int columns
+
+Game Play
+User loads an image. Image data is reset. User views the image and provides edits. Image is
+updated. If the user chooses to save, the edited image data is written to a file. User can continue editing or exit.
+
+Functions
+main()
+● Data: Image, Current Image, File pointers, Brightness to Character Map
+● Functionality: Load the image from the file. Display image. In a loop, allow user to
+choose editing actions, update image, prompt to save or continue editing.
+
+loadImage()
+● Input Parameters: File pointer inputImage, int rows, int columns, int Image 2D array
+● Returned Output: None
+● Functionality: Load values from file into Image 2D array.
+
+displayImage()
+● Input Parameters: int rows, int columns, int Image 2D array
+● Returned Output: None
+● Functionality: Display a line. For each row, display the corresponding characters for each
+cell in the row based on the Brightness to Character Map.
+
+editImage()
+● Input Parameters: int rows, int columns, int Current Image 2D array
+● Returned Output: None
+● Functionality: Display edit options. Repeat getting the user’s edit choice, update the
+Current Image, display the image, and check to see if the user wants to save or continue
+until the user chooses to exit editing.
+
+saveImage()
+● Input Parameters: File pointer outputImage, int rows, int columns, int Current Image 2D
+array
+● Returned Output: None
+● Functionality: Write the Current Image data to a file as specified by the user.
+
+cropImage()
+● Input Parameters: int rows, int columns, int Current Image 2D array, int startRow, int
+startCol, int endRow, int endCol
+● Returned Output: None
+● Functionality: Modify the Current Image by retaining only the section specified by the
+input parameters.
+
+dimImage()
+● Input Parameters: int rows, int columns, int Current Image 2D array
+● Returned Output: None
+● Functionality: Decrease the brightness of each pixel in the Current Image by 1, not going
+below 0.
+
+brightenImage()
+● Input Parameters: int rows, int columns, int Current Image 2D array
+● Returned Output: None
+● Functionality: Increase the brightness of each pixel in the Current Image by 1, not
+exceeding 4.
+
+rotateImage90Degrees()
+● Input Parameters: int rows, int columns, int Current Image 2D array
+● Returned Output: None
+● Functionality: Rotate the Current Image by 90 degrees clockwise
