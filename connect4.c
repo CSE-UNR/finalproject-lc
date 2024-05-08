@@ -10,6 +10,8 @@ void printBoard(char board[ROWS][COLUMNS]);
 void initializeBoard(char board[ROWS][COLUMNS]);
 int getChoice();
 void playGame(char board[ROWS][COLUMNS], char startingPlayer);
+void loadGame(char board[ROWS][COLUMNS]);
+void saveGame(char board[ROWS][COLUMNS]);
 int makeMove(char board[ROWS][COLUMNS], int col, char token);
 bool checkWin(char board[ROWS][COLUMNS], char token);
 bool checkDraw(char board[ROWS][COLUMNS]);
@@ -30,6 +32,7 @@ int main() {
                 initializeBoard(board);
                 break;
             case 2:
+            	loadGame(board);
                 break;
             case 3:
                 printf("Exiting...\n");
@@ -87,6 +90,8 @@ void playGame(char board[ROWS][COLUMNS], char startingPlayer) {
         scanf("%d", &col);
 
         if (col == -1) {
+            saveGame(board);
+            printf("Game saved and exiting...\n");
             return;
         }
 
@@ -109,8 +114,44 @@ void playGame(char board[ROWS][COLUMNS], char startingPlayer) {
     }
 }
 
+void loadGame(char board[ROWS][COLUMNS]){
+	FILE *file = fopen(FILENAME, "r");
+	if (file == NULL){
+		printf("No saved game found.\n");
+		return;
+	}
 
+	char token = 'X';
+	int xCount = 0, oCount = 0;
+	for (int i = 0; i < ROWS; i++){
+		for (int j = 0; j < COLUMNS; j++){
+			fscanf(file, " %c", &board[i][j]);
+			if (board[i][j] == 'X') xCount++;
+			if (board[i][j] == 'O') oCount++;
+		}
+	}
+	fclose(file);
+	printf("Game loaded successfully.\n");
 
+	token = (xCount > oCount) ? 'O' : 'X';
+	playGame(board, token);
+}
+
+void saveGame(char board[ROWS][COLUMNS]){
+	FILE *file = fopen(FILENAME, "w");
+	if (file == NULL){
+		printf("Error saving game.\n");
+		return;
+	}
+	
+	for (int i = 0; i < ROWS; i++){
+		for (int j = 0; j < COLUMNS; j++){
+			fprintf(file, " %c", board[i][j]);
+		}
+		fprintf(file, "\n");
+	}
+	fclose(file);
+}
 int makeMove(char board[ROWS][COLUMNS], int col, char token) {
     if (col < 0 || col >= COLUMNS) {
         return false;
