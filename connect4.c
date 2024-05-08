@@ -4,6 +4,7 @@
 #define ROWS 6
 #define COLUMNS 7
 #define FILENAME "saved_game.txt"
+#define MAX_NAME_LEN 100
 
 void printMenu();
 void printBoard(char board[ROWS][COLUMNS]);
@@ -32,7 +33,7 @@ int main() {
                 initializeBoard(board);
                 break;
             case 2:
-            	loadGame(board);
+                loadGame(board);
                 break;
             case 3:
                 printf("Exiting...\n");
@@ -79,7 +80,12 @@ void printBoard(char board[ROWS][COLUMNS]) {
 }
 
 void playGame(char board[ROWS][COLUMNS], char startingPlayer) {
-    char player1[100] = "Player 1", player2[100] = "Player 2";
+    char player1[MAX_NAME_LEN], player2[MAX_NAME_LEN];
+    printf("Enter name for Player 1 (X): ");
+    scanf(" %99[^\n]", player1); // Read up to 99 characters or until newline
+    printf("Enter name for Player 2 (O): ");
+    scanf(" %99[^\n]", player2);
+
     char token = startingPlayer;
     int col;
     bool gameOver = false;
@@ -152,6 +158,7 @@ void saveGame(char board[ROWS][COLUMNS]){
 	}
 	fclose(file);
 }
+
 int makeMove(char board[ROWS][COLUMNS], int col, char token) {
     if (col < 0 || col >= COLUMNS) {
         return false;
@@ -191,4 +198,3 @@ bool checkDraw(char board[ROWS][COLUMNS]) {
     }
     return true;
 }
-
